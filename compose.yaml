@@ -1,0 +1,8 @@
+services:
+  postgres:
+    container_name: 'Quero_Ler'
+    image: 'postgres:latest'
+    env_file:
+      - .env
+    ports:
+      - '8081:5432'
