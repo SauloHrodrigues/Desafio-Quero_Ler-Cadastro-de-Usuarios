@@ -3,7 +3,9 @@ package com.queroler.CadastroDeUsuario.mappers;
 import com.queroler.CadastroDeUsuario.dtos.UsuarioRequestDTO;
 import com.queroler.CadastroDeUsuario.model.Usuario;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UsuarioMapper {
     public Usuario toEntity(UsuarioRequestDTO request){
         String senhaCriptografada = new BCryptPasswordEncoder().encode(request.senha());
@@ -12,7 +14,7 @@ public class UsuarioMapper {
                 .email(request.email())
                 .cpf(request.cpf())
                 .dataDeNascimento(request.dataDeNascimento())
-                .aceiteTermos(request.aceiteTermos())
+                .aceitarTermos(request.aceitarTermos())
                 .cidade(request.cidade())
                 .estado(request.estado())
                 .pais(request.pais())
@@ -20,7 +22,7 @@ public class UsuarioMapper {
                 .login(loginTratado(request.email()))
                 .senha(senhaCriptografada)
                 .build();
-        return null;
+        return usuario;
     }
 
     public String loginTratado(String login){

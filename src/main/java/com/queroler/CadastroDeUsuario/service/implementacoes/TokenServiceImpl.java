@@ -15,10 +15,12 @@ import java.time.ZoneOffset;
 
 @Service
 public class TokenServiceImpl implements TokenServiceI {
-    @Value("${api.securit.token.secret}")
+    //    @Value("${api.securit.token.secret}")
+    @Value("${api.securit.token.secret:teste}")
     private String secret;
 
-    public String gerarToken(Usuario usuarios){
+
+    public String gerarToken(Usuario usuarios) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
@@ -32,7 +34,7 @@ public class TokenServiceImpl implements TokenServiceI {
         }
     }
 
-    public String validaToken(String token){
+    public String validaToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
@@ -40,12 +42,12 @@ public class TokenServiceImpl implements TokenServiceI {
                     .build()
                     .verify(token)
                     .getSubject();
-        } catch (JWTVerificationException exception){
+        } catch (JWTVerificationException exception) {
             return "";
         }
     }
 
-    private Instant gerarExpiracaoToken(){
+    private Instant gerarExpiracaoToken() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
 }

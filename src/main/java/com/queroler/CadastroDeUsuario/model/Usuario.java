@@ -47,7 +47,7 @@ public class Usuario implements UserDetails {
 
     @NotNull
     @Column(name = "aceite_termos", nullable = false)
-    private Boolean aceiteTermos;
+    private Boolean aceitarTermos;
 
     @Size(max = 80)
     @Column(name = "cidade", length = 80)
@@ -61,10 +61,10 @@ public class Usuario implements UserDetails {
     @Column(name = "pais", length = 100)
     private String pais;
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(name = "foto", columnDefinition = "BYTEA")
-    private byte[] foto;
+//    @Lob
+//    @Basic(fetch = FetchType.LAZY)
+//    @Column(name = "foto", columnDefinition = "BYTEA")
+//    private byte[] foto;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -80,6 +80,13 @@ public class Usuario implements UserDetails {
     @Size(min = 6)
     @Column(name = "senha", nullable = false)
     private String senha;
+
+    public Usuario(String login, String password, UsuarioRole role) {
+        this.login = login;
+        this.role = role;
+        this.senha = password;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -30,7 +30,7 @@ public record UsuarioRequestDTO(
         @NotNull
         @AssertTrue(message = "É necessário aceitar os termos")
         @Schema(description = "Confirmação de aceite dos termos", example = "true", requiredMode = Schema.RequiredMode.REQUIRED)
-        Boolean aceiteTermos,
+        Boolean aceitarTermos,
 
         @Size(max = 80)
         @Schema(description = "Cidade do usuário", example = "Campinas", maxLength = 80)
@@ -51,5 +51,6 @@ public record UsuarioRequestDTO(
         @NotBlank
         @Size(min = 6)
         @Schema(description = "Senha do usuário", example = "123456", minLength = 6)
-        String senha
+        String senha,
+        String login
 ) {}
