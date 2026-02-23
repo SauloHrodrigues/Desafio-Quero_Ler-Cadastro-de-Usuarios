@@ -44,10 +44,6 @@ public record UsuarioRequestDTO(
         @Schema(description = "País do usuário", example = "Brasil", maxLength = 100)
         String pais,
 
-        @NotNull
-        @Schema(description = "Perfil do usuário", example = "LEITOR")
-        UsuarioRole role,
-
         @NotBlank
         @Size(min = 6)
         @Schema(description = "Senha do usuário", example = "123456", minLength = 6)

@@ -1,15 +1,15 @@
 CREATE TABLE tb_usuarios (
                              id BIGSERIAL PRIMARY KEY,
 
-                             nome VARCHAR(80) NOT NULL,
+                             nome VARCHAR(80),
 
-                             email VARCHAR(150) NOT NULL UNIQUE,
+                             email VARCHAR(150) UNIQUE,
 
-                             cpf VARCHAR(14) NOT NULL UNIQUE,
+                             cpf VARCHAR(14) UNIQUE,
 
                              data_nascimento DATE,
 
-                             aceite_termos BOOLEAN NOT NULL,
+                             aceite_termos BOOLEAN,
 
                              cidade VARCHAR(80),
 
@@ -38,17 +38,17 @@ INSERT INTO tb_usuarios (
 )
 SELECT
     'Administrador do Sistema',
-    'admin@queroler.com',
-    '00000000002',
-    '1990-01-01',
+    null,
+    null,
+    null,
     true,
-    'Campinas',
-    'SP',
-    'Brasil',
+    null,
+    null,
+    null,
 
     'ADMINISTRADOR',
     'admin',
-    '$2a$10$610xJj0qHTLX9d9UFRpXQeE70e/GDSGj4Tf2fO1WDSmpliyLog6Xm'
+    '$2a$10$JH3Tn.std3ux380zmuulYOpeEkq7oTu21W8IrRULajBs7spD5b4YK'
     WHERE NOT EXISTS (
     SELECT 1 FROM tb_usuarios WHERE email = 'admin@queroler.com'
 );

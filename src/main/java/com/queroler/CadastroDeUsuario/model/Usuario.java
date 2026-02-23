@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Getter
+@Setter
 @Builder
 @Entity(name = "tb_usuarios")
 @Table(name = "tb_usuarios")
@@ -25,18 +26,15 @@ public class Usuario implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     @Size(max = 80)
     @Column(name = "nome", nullable = false, length = 80)
     private String nome;
 
-    @NotBlank
     @Email
     @Size(max = 150)
     @Column(name = "email", nullable = false, unique = true, length = 150)
     private String email;
 
-    @NotBlank
     @Size(min = 11, max = 14)
     @Column(name = "cpf", nullable = false, unique = true, length = 14)
     private String cpf;
@@ -45,7 +43,7 @@ public class Usuario implements UserDetails {
     @Column(name = "data_nascimento")
     private LocalDate dataDeNascimento;
 
-    @NotNull
+
     @Column(name = "aceite_termos", nullable = false)
     private Boolean aceitarTermos;
 
@@ -66,17 +64,17 @@ public class Usuario implements UserDetails {
 //    @Column(name = "foto", columnDefinition = "BYTEA")
 //    private byte[] foto;
 
-    @NotNull
+
     @Enumerated(EnumType.STRING)
     @Column(name = "perfil", nullable = false)
     private UsuarioRole role;
 
-    @NotBlank
+
     @Size(max = 80)
     @Column(name = "login", nullable = false, unique = true, length = 80)
     private String login;
 
-    @NotBlank
+
     @Size(min = 6)
     @Column(name = "senha", nullable = false)
     private String senha;
@@ -93,7 +91,7 @@ public class Usuario implements UserDetails {
 
         return switch (this.role) {
             case ADMINISTRADOR -> List.of(
-                    new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_ADMINISTRADOR"),
                     new SimpleGrantedAuthority("ROLE_MODERADOR"),
                     new SimpleGrantedAuthority("ROLE_LEITOR")
             );
@@ -140,11 +138,13 @@ public class Usuario implements UserDetails {
         return true;
     }
 
-    @PrePersist
-    @PreUpdate
-    private void gerarLogin() {
-        if (this.email != null && this.email.contains("@")) {
+    public void gerarLogin(String login) {
+        if (login != null){
+            this.login = login.toLowerCase();
+        } else  if(this.email != null && this.email.contains("@")) {
             this.login = email.substring(0, email.indexOf("@"));
+        } else {
+            throw new RuntimeException("Verificar login ou e-mail de cadastro");
         }
     }
 

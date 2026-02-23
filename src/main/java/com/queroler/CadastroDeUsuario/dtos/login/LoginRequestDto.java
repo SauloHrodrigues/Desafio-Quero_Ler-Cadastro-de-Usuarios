@@ -1,4 +1,4 @@
-package com.queroler.CadastroDeUsuario.dtos;
+package com.queroler.CadastroDeUsuario.dtos.login;
 
 public record LoginRequestDto(
    String login,

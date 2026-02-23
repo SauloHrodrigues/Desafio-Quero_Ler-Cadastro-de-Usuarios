@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDate;
 
 @Schema(name = "UsuarioResponse", description = "Dados retornados do usuário")
-
 public record UsuarioResponseDto(
 
         @Schema(description = "ID do usuário", example = "1")

@@ -1,6 +1,6 @@
 package com.queroler.CadastroDeUsuario.controllers;
 
-import com.queroler.CadastroDeUsuario.dtos.AutenticacaoDto;
+import com.queroler.CadastroDeUsuario.dtos.login.LoginRequestDto;
 import com.queroler.CadastroDeUsuario.service.LoginService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class LoginController {
     private final LoginService service;
 
     @PostMapping
-    public ResponseEntity<Object> login(@RequestBody @Valid AutenticacaoDto autenticacaoDto) {
+    public ResponseEntity<Object> login(@RequestBody @Valid LoginRequestDto autenticacaoDto) {
         var token = service.login(autenticacaoDto);
         return ResponseEntity.ok(token);
     }
