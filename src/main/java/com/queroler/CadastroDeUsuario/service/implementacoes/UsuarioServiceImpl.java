@@ -11,6 +11,7 @@ import com.queroler.CadastroDeUsuario.repository.UsuarioRepository;
 import com.queroler.CadastroDeUsuario.service.AdministradorServiceI;
 import com.queroler.CadastroDeUsuario.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -73,6 +74,25 @@ public class UsuarioServiceImpl implements UsuarioService, AdministradorServiceI
         }
     }
 
+    @Override
+    public Usuario getUsuarioLogado() {
+
+        Authentication authentication = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new RuntimeException("Usuário não autenticado");
+        }
+
+        Object principal = authentication.getPrincipal();
+
+        if (principal instanceof Usuario usuario) {
+            return usuario;
+        }
+
+        throw new RuntimeException("Principal inválido");
+    }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDetails usuario = repository.findByLogin(username);
