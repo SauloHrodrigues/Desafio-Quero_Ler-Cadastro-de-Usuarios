@@ -23,7 +23,6 @@ public class AdiministradorController {
     }
     @PatchMapping("/senha")
     public ResponseEntity<Void> alterarSenha(@RequestBody @Valid AtualizarSenhaDto dto){
-        System.out.println("salvar senha!!!!");
         service.alterarSenha(dto);
         return ResponseEntity.ok().build();
     }

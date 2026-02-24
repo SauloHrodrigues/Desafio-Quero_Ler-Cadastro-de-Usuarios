@@ -5,6 +5,8 @@ import com.queroler.CadastroDeUsuario.dtos.UsuarioRequestDTO;
 import com.queroler.CadastroDeUsuario.dtos.UsuarioResponseDto;
 import com.queroler.CadastroDeUsuario.dtos.administrador.AdministradorRequestDTO;
 import com.queroler.CadastroDeUsuario.enuns.UsuarioRole;
+import com.queroler.CadastroDeUsuario.exceptions.SenhaInvalidaException;
+import com.queroler.CadastroDeUsuario.exceptions.UsuarioNaoEncontradoException;
 import com.queroler.CadastroDeUsuario.mappers.UsuarioMapper;
 import com.queroler.CadastroDeUsuario.model.Usuario;
 import com.queroler.CadastroDeUsuario.repository.UsuarioRepository;
@@ -50,23 +52,25 @@ public class UsuarioServiceImpl implements UsuarioService, AdministradorServiceI
 
     @Override
     public void alterarSenha(AtualizarSenhaDto senhaDto) {
-
-        String login = SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getName();
+        validar.senha(senhaDto.novaSenha());
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
 
         UserDetails userDetails = repository.findByLogin(login);
 
         if (userDetails == null) {
-            throw new UsernameNotFoundException("Usuário não encontrado");
+            throw new UsuarioNaoEncontradoException("Usuário não encontrado");
         }
 
         Usuario usuario = (Usuario) userDetails;
 
         if (!passwordEncoder.matches(senhaDto.senhaAtual(), usuario.getSenha())) {
-            throw new IllegalArgumentException("Senha atual incorreta");
+            throw new SenhaInvalidaException( "Senha atual incorreta");
         }
+
+        if (passwordEncoder.matches(senhaDto.novaSenha(), usuario.getSenha())) {
+            throw new SenhaInvalidaException("A nova senha não pode ser igual à senha atual.");
+        }
+
 
         usuario.setSenha(passwordEncoder.encode(senhaDto.novaSenha()));
         repository.save(usuario);

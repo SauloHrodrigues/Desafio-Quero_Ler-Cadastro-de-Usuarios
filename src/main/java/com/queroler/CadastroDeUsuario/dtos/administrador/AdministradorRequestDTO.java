@@ -53,6 +53,5 @@ public record AdministradorRequestDTO(
         @NotBlank
         @Size(min = 6)
         @Schema(description = "Senha do usuário", example = "123456", minLength = 6)
-        String senha,
-        String login
+        String senha
 ) {}
