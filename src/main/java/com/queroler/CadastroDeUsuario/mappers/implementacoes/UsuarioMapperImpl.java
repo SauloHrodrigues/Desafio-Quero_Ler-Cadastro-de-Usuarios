@@ -1,9 +1,11 @@
 package com.queroler.CadastroDeUsuario.mappers.implementacoes;
 
+import com.queroler.CadastroDeUsuario.dtos.UsuarioExibirResponseDto;
 import com.queroler.CadastroDeUsuario.dtos.administrador.AdministradorRequestDTO;
-import com.queroler.CadastroDeUsuario.dtos.UsuarioAtualizadoDto;
+import com.queroler.CadastroDeUsuario.dtos.UsuarioLeitorAtualizadoDto;
 import com.queroler.CadastroDeUsuario.dtos.UsuarioRequestDTO;
 import com.queroler.CadastroDeUsuario.dtos.UsuarioResponseDto;
+import com.queroler.CadastroDeUsuario.dtos.administrador.UsuarioAdministradorAtualizadoDto;
 import com.queroler.CadastroDeUsuario.enuns.UsuarioRole;
 import com.queroler.CadastroDeUsuario.mappers.UsuarioMapper;
 import com.queroler.CadastroDeUsuario.model.Usuario;
@@ -48,7 +50,27 @@ public class UsuarioMapperImpl implements UsuarioMapper {
         return usuario;
     }
 
-    public Usuario toUpdate(Usuario usuario, UsuarioAtualizadoDto atualizacoes) {
+    public Usuario toUpdate(Usuario usuario, UsuarioAdministradorAtualizadoDto atualizacoes) {
+
+        if (atualizacoes.cidade() != null) {
+            usuario.setCidade(atualizacoes.cidade());
+        }
+
+        if (atualizacoes.estado() != null) {
+            usuario.setEstado(atualizacoes.estado());
+        }
+
+        if (atualizacoes.pais() != null) {
+            usuario.setPais(atualizacoes.pais());
+        }
+
+        if (atualizacoes.senha() != null) {
+            usuario.setSenha(atualizacoes.senha());
+        }
+
+        return usuario;
+    }
+  public Usuario toUpdate(Usuario usuario, UsuarioLeitorAtualizadoDto atualizacoes) {
 
         if (atualizacoes.nome() != null) {
             usuario.setNome(atualizacoes.nome());
@@ -78,9 +100,6 @@ public class UsuarioMapperImpl implements UsuarioMapper {
             usuario.setSenha(atualizacoes.senha());
         }
 
-        if (atualizacoes.login() != null) {
-            usuario.setLogin(atualizacoes.login());
-        }
         return usuario;
     }
 
@@ -97,6 +116,19 @@ public class UsuarioMapperImpl implements UsuarioMapper {
                 usuario.getPais(),
                 usuario.getRole(),
                 usuario.getLogin()
+        );
+    }
+
+    public UsuarioExibirResponseDto toResponseExibir(Usuario usuario) {
+        return new UsuarioExibirResponseDto(
+
+                usuario.getNome(),
+                usuario.getEmail(),
+                usuario.getCpf(),
+                usuario.getDataDeNascimento(),
+                usuario.getCidade(),
+                usuario.getEstado(),
+                usuario.getPais()
         );
     }
 }

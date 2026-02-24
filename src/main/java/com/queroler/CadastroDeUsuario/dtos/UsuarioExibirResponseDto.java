@@ -1,14 +1,14 @@
 package com.queroler.CadastroDeUsuario.dtos;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.queroler.CadastroDeUsuario.enuns.UsuarioRole;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.time.LocalDate;
 
-@Schema(name = "UsuarioResponse", description = "Dados retornados do usuário")
-public record UsuarioResponseDto(
+@Schema(name = "UsuarioExibirResponse", description = "Dados para serem retornados ao usuário")
+public record UsuarioExibirResponseDto(
 
-        @Schema(description = "ID do usuário", example = "1")
-        Long id,
 
         @Schema(description = "Nome completo do usuário", example = "Saulo Rodrigues")
         String nome,
@@ -30,11 +30,5 @@ public record UsuarioResponseDto(
         String estado,
 
         @Schema(description = "País do usuário", example = "Brasil")
-        String pais,
-
-        @Schema(description = "Perfil do usuário", example = "LEITOR")
-        UsuarioRole role,
-
-        @Schema(description = "Login do usuário", example = "saulo.rodrigues")
-        String login
+        String pais
 ) {}

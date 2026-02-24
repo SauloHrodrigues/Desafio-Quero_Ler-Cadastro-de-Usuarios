@@ -1,4 +1,5 @@
 package com.queroler.CadastroDeUsuario.dtos;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.queroler.CadastroDeUsuario.enuns.UsuarioRole;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
@@ -11,6 +12,7 @@ public record UsuarioRequestDTO(
 
         @NotBlank
         @Size(max = 80)
+        @Pattern(regexp = "^[\\p{L} ]+$", message = "O nome deve conter apenas letras e espaços")
         @Schema(description = "Nome completo do usuário", example = "Saulo Rodrigues", maxLength = 80)
         String nome,
 
@@ -27,7 +29,8 @@ public record UsuarioRequestDTO(
         String cpf,
 
         @Past
-        @Schema(description = "Data de nascimento", example = "1995-08-21")
+        @JsonFormat(pattern = "dd/MM/yyyy")
+        @Schema(description = "Data de nascimento", example = "02/08/2001")
         LocalDate dataDeNascimento,
 
         @NotNull

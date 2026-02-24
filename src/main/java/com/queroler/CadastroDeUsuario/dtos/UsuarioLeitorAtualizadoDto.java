@@ -1,14 +1,15 @@
 package com.queroler.CadastroDeUsuario.dtos;
 
-import com.queroler.CadastroDeUsuario.enuns.UsuarioRole;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
-public record UsuarioAtualizadoDto(
+public record UsuarioLeitorAtualizadoDto(
 
         @Size(max = 80)
+        @Pattern(regexp = "^[\\p{L} ]+$", message = "O nome deve conter apenas letras e espaços")
         @Schema(description = "Nome completo do usuário", example = "Saulo Rodrigues", maxLength = 80)
         String nome,
 
@@ -17,9 +18,9 @@ public record UsuarioAtualizadoDto(
         @Schema(description = "Email do usuário", example = "saulo@email.com", maxLength = 150)
         String email,
 
-
         @Past
-        @Schema(description = "Data de nascimento", example = "1995-08-21")
+        @JsonFormat(pattern = "dd/MM/yyyy")
+        @Schema(description = "Data de nascimento", example = "02/08/2001")
         LocalDate dataDeNascimento,
 
         @Size(max = 80)
@@ -36,7 +37,5 @@ public record UsuarioAtualizadoDto(
 
         @Size(min = 6)
         @Schema(description = "Senha do usuário", example = "123456", minLength = 6)
-        String senha,
-        String login
-) {
-}
+        String senha
+) {}

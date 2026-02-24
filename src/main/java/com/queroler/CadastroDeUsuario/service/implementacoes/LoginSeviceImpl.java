@@ -6,6 +6,7 @@ import com.queroler.CadastroDeUsuario.exceptions.SenhaInvalidaException;
 import com.queroler.CadastroDeUsuario.model.Usuario;
 import com.queroler.CadastroDeUsuario.service.LoginService;
 import com.queroler.CadastroDeUsuario.service.TokenServiceI;
+import com.queroler.CadastroDeUsuario.service.UsuarioService;
 import com.queroler.CadastroDeUsuario.utils.ValidadorUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,11 +19,12 @@ public class LoginSeviceImpl implements LoginService {
     private final TokenServiceI tokenService;
     private final AuthenticationManager authenticationManager;
     private final ValidadorUtils validar;
+    private final UsuarioService usuarioService;
 
     @Override
     public LoginResponseDto login(LoginRequestDto request) {
         validar.senha(request.senha());
-        validar.email(request.login());
+        usuarioService.validaLogin(request.login());
         var userNamePassword = new UsernamePasswordAuthenticationToken(request.login(), request.senha());
         var autenticacao = authenticationManager.authenticate(userNamePassword);
         var token = tokenService.gerarToken((Usuario) autenticacao.getPrincipal());

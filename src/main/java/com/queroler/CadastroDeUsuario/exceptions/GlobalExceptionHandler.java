@@ -2,6 +2,7 @@ package com.queroler.CadastroDeUsuario.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -43,6 +44,26 @@ public class GlobalExceptionHandler {
         );
 
         return ResponseEntity.badRequest().body(erros);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<Map<String, String>> handleJsonError(
+            HttpMessageNotReadableException ex) {
+
+        Map<String, String> erro = new HashMap<>();
+
+        Throwable causa = ex.getCause();
+
+        if (causa instanceof com.fasterxml.jackson.databind.exc.InvalidFormatException invalidFormat) {
+
+            if (invalidFormat.getTargetType().equals(java.time.LocalDate.class)) {
+                erro.put("dataDeNascimento", "Formato inválido. Use dd/MM/yyyy");
+                return ResponseEntity.badRequest().body(erro);
+            }
+        }
+
+        erro.put("erro", "JSON inválido.");
+        return ResponseEntity.badRequest().body(erro);
     }
 
 }

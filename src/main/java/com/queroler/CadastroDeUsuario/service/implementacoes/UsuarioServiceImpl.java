@@ -1,10 +1,10 @@
 package com.queroler.CadastroDeUsuario.service.implementacoes;
 
-import com.queroler.CadastroDeUsuario.dtos.AtualizarSenhaDto;
-import com.queroler.CadastroDeUsuario.dtos.UsuarioRequestDTO;
-import com.queroler.CadastroDeUsuario.dtos.UsuarioResponseDto;
+import com.queroler.CadastroDeUsuario.dtos.*;
 import com.queroler.CadastroDeUsuario.dtos.administrador.AdministradorRequestDTO;
+import com.queroler.CadastroDeUsuario.dtos.administrador.UsuarioAdministradorAtualizadoDto;
 import com.queroler.CadastroDeUsuario.enuns.UsuarioRole;
+import com.queroler.CadastroDeUsuario.exceptions.EmailInvalidoException;
 import com.queroler.CadastroDeUsuario.exceptions.SenhaInvalidaException;
 import com.queroler.CadastroDeUsuario.exceptions.UsuarioNaoEncontradoException;
 import com.queroler.CadastroDeUsuario.mappers.UsuarioMapper;
@@ -21,6 +21,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -71,10 +73,11 @@ public class UsuarioServiceImpl implements UsuarioService, AdministradorServiceI
             throw new SenhaInvalidaException("A nova senha não pode ser igual à senha atual.");
         }
 
-
         usuario.setSenha(passwordEncoder.encode(senhaDto.novaSenha()));
         repository.save(usuario);
     }
+
+
 
     protected void validarRequestDto(String email) {
         if (repository.findByLogin(email.toLowerCase()) != null) {
@@ -101,12 +104,42 @@ public class UsuarioServiceImpl implements UsuarioService, AdministradorServiceI
 
         throw new RuntimeException("Principal inválido");
     }
+
+    @Override
+    public void validaLogin(String loguin){
+        loadUserByUsername(loguin);
+    }
+
+    @Override
+    public UsuarioExibirResponseDto exibir(){
+        Usuario usuario = getUsuarioLogado();
+        return mapper.toResponseExibir(usuario);
+    }
+
+    @Override
+    public void atualizar(UsuarioAdministradorAtualizadoDto atualizacoes){
+        Usuario usuario = getUsuarioLogado();
+        mapper.toUpdate(usuario,atualizacoes);
+    }
+    @Override
+    public void atualizar(UsuarioLeitorAtualizadoDto atualizacoes){
+        if(atualizacoes.email()!=null){
+            Optional<Usuario> cadastrado = repository.findByEmailIgnoreCase(atualizacoes.email());
+                if (!cadastrado.isEmpty()){
+                    throw new EmailInvalidoException("Email já cadastrado no banco!");
+                }
+        }
+        Usuario usuario = getUsuarioLogado();
+        usuario = mapper.toUpdate(usuario,atualizacoes);
+        repository.save(usuario);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDetails usuario = repository.findByLogin(username);
+        UserDetails usuario = repository.findByLogin(username.toLowerCase());
 
         if (usuario == null) {
-            throw new UsernameNotFoundException("Usuário não encontrado");
+            throw new UsuarioNaoEncontradoException("Usuário não encontrado");
         }
 
         return usuario;
