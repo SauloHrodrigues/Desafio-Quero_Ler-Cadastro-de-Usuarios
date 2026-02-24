@@ -10,6 +10,7 @@ import com.queroler.CadastroDeUsuario.model.Usuario;
 import com.queroler.CadastroDeUsuario.repository.UsuarioRepository;
 import com.queroler.CadastroDeUsuario.service.AdministradorServiceI;
 import com.queroler.CadastroDeUsuario.service.UsuarioService;
+import com.queroler.CadastroDeUsuario.utils.ValidadorUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,9 +26,12 @@ public class UsuarioServiceImpl implements UsuarioService, AdministradorServiceI
     private final UsuarioRepository repository;
     private final UsuarioMapper mapper;
     private final PasswordEncoder passwordEncoder;
+    private final ValidadorUtils validar;
 
     @Override
     public UsuarioResponseDto criar(UsuarioRequestDTO registroDto) {
+        validar.email(registroDto.email());
+        validar.senha(registroDto.senha());
         validarRequestDto(registroDto.email());
         Usuario usuario = mapper.toEntity(registroDto);
         usuario.setRole(UsuarioRole.LEITOR);

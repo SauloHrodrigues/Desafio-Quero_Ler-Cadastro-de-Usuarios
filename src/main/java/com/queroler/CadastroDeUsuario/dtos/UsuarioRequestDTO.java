@@ -2,6 +2,8 @@ package com.queroler.CadastroDeUsuario.dtos;
 import com.queroler.CadastroDeUsuario.enuns.UsuarioRole;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
+import org.hibernate.validator.constraints.br.CPF;
+
 import java.time.LocalDate;
 
 @Schema(name = "UsuarioRequest", description = "Dados para cadastro de usuário")
@@ -20,6 +22,7 @@ public record UsuarioRequestDTO(
 
         @NotBlank
         @Size(min = 11, max = 14)
+        @CPF(message = "cpf invalido")
         @Schema(description = "CPF do usuário (somente números ou formatado)", example = "12345678901")
         String cpf,
 
@@ -47,6 +50,5 @@ public record UsuarioRequestDTO(
         @NotBlank
         @Size(min = 6)
         @Schema(description = "Senha do usuário", example = "123456", minLength = 6)
-        String senha,
-        String login
+        String senha
 ) {}
