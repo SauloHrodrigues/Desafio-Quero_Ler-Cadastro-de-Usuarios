@@ -135,6 +135,12 @@ public class UsuarioServiceImpl implements UsuarioService, AdministradorServiceI
     }
 
     @Override
+    public void deletar(){
+        Usuario usuario = getUsuarioLogado();
+        repository.delete(usuario);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDetails usuario = repository.findByLogin(username.toLowerCase());
 

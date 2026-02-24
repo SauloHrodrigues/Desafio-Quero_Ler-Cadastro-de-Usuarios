@@ -32,4 +32,10 @@ public class UsuarioController {
         service.atualizar(atualizacoes);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deletar(){
+        service.deletar();
+        return ResponseEntity.noContent().build();
+    }
 }

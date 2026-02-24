@@ -13,4 +13,5 @@ public interface UsuarioService {
     void validaLogin(String loguin);
     UsuarioExibirResponseDto exibir();
     void atualizar(UsuarioLeitorAtualizadoDto atualizacoes);
+    void deletar();
 }
