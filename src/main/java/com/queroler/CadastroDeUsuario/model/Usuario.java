@@ -138,14 +138,7 @@ public class Usuario implements UserDetails {
         return true;
     }
 
-    public void gerarLogin(String login) {
-        if (login != null){
-            this.login = login.toLowerCase();
-        } else  if(this.email != null && this.email.contains("@")) {
-            this.login = email.substring(0, email.indexOf("@"));
-        } else {
-            throw new RuntimeException("Verificar login ou e-mail de cadastro");
-        }
+    public void gerarLogin() {
+      this.login = this.email.toLowerCase();
     }
-
 }

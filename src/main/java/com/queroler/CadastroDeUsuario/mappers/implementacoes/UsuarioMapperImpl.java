@@ -24,9 +24,9 @@ public class UsuarioMapperImpl implements UsuarioMapper {
                 .estado(request.estado())
                 .pais(request.pais())
                 .role(UsuarioRole.LEITOR)
-                .login(loginTratado(request.email()))
                 .senha(senhaCriptografada)
                 .build();
+        usuario.gerarLogin();
         return usuario;
     }
 
@@ -44,7 +44,7 @@ public class UsuarioMapperImpl implements UsuarioMapper {
                 .role(UsuarioRole.ADMINISTRADOR)
                 .senha(senhaCriptografada)
                 .build();
-        usuario.gerarLogin(request.login());
+        usuario.gerarLogin();
         return usuario;
     }
 
@@ -98,15 +98,5 @@ public class UsuarioMapperImpl implements UsuarioMapper {
                 usuario.getRole(),
                 usuario.getLogin()
         );
-    }
-
-    public String loginTratado(String login) {
-        String loginGerado;
-        if (login.contains("@")) {
-            loginGerado = login.substring(0, login.indexOf("@"));
-        } else {
-            loginGerado = login;
-        }
-        return loginGerado.toLowerCase();
     }
 }

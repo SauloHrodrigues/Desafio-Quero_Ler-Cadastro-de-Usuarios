@@ -69,7 +69,7 @@ public class UsuarioServiceImpl implements UsuarioService, AdministradorServiceI
     }
 
     protected void validarRequestDto(String email) {
-        if (repository.findByLogin(mapper.loginTratado(email)) != null) {
+        if (repository.findByLogin(email.toLowerCase()) != null) {
             throw new RuntimeException("Usuario ja cadastrado ");
         }
     }
