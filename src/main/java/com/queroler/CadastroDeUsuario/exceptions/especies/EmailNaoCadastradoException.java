@@ -1,4 +1,4 @@
-package com.queroler.CadastroDeUsuario.exceptions;
+package com.queroler.CadastroDeUsuario.exceptions.especies;
 
 public class EmailNaoCadastradoException extends RuntimeException{
     public EmailNaoCadastradoException(String mensagem) {

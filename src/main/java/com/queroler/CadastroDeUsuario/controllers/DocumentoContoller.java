@@ -34,7 +34,7 @@ public class DocumentoContoller {
         return ResponseEntity.ok(page);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Void> atualizar(@PathVariable Long id, @RequestBody @Valid DocumentoUpdateDto dto) {
         service.atualizar(id, dto);
         return ResponseEntity.noContent().build();

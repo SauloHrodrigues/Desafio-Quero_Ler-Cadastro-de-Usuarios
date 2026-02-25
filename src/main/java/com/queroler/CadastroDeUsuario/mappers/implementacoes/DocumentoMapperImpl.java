@@ -29,12 +29,15 @@ public class DocumentoMapperImpl implements DocumentoMapper {
     }
 
     @Override
-    public Documento toUpdate(Documento documento, DocumentoUpdateDto dto) {
-        return new Documento(
-                documento.getId(),
-                dto.titulo() != null ? dto.titulo() : documento.getTitulo(),
-                dto.tipo() != null ? dto.tipo() : documento.getTipo(),
-                dto.conteudo() != null ? dto.conteudo() : documento.getConteudo()
-        );
+    public void toUpdate(Documento documento, DocumentoUpdateDto dto) {
+       if(dto.titulo()!=null){
+           documento.setTitulo(dto.titulo());
+       }
+       if(dto.tipo()!= null){
+           documento.setTipo(dto.tipo());
+       }
+       if(dto.conteudo()!=null){
+           documento.setConteudo(dto.conteudo());
+       }
     }
 }

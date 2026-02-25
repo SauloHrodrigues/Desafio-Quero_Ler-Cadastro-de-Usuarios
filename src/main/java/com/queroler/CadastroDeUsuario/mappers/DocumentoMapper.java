@@ -10,5 +10,5 @@ public interface DocumentoMapper {
 
     DocumentoResponseDto toResponse(Documento documento);
 
-    Documento toUpdate(Documento documento, DocumentoUpdateDto dto);
+    void toUpdate(Documento documento, DocumentoUpdateDto dto);
 }

@@ -2,7 +2,6 @@ package com.queroler.CadastroDeUsuario.service.implementacoes;
 
 import com.queroler.CadastroDeUsuario.dtos.login.LoginRequestDto;
 import com.queroler.CadastroDeUsuario.dtos.login.LoginResponseDto;
-import com.queroler.CadastroDeUsuario.exceptions.SenhaInvalidaException;
 import com.queroler.CadastroDeUsuario.model.Usuario;
 import com.queroler.CadastroDeUsuario.service.LoginService;
 import com.queroler.CadastroDeUsuario.service.TokenServiceI;

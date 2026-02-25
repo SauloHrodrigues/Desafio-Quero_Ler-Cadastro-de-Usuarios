@@ -1,7 +1,7 @@
 package com.queroler.CadastroDeUsuario.utils;
 
-import com.queroler.CadastroDeUsuario.exceptions.EmailInvalidoException;
-import com.queroler.CadastroDeUsuario.exceptions.SenhaInvalidaException;
+import com.queroler.CadastroDeUsuario.exceptions.especies.EmailInvalidoException;
+import com.queroler.CadastroDeUsuario.exceptions.especies.SenhaInvalidaException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
