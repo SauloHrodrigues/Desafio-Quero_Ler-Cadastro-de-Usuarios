@@ -5,8 +5,8 @@ import com.queroler.CadastroDeUsuario.dtos.UsuarioRequestDTO;
 import com.queroler.CadastroDeUsuario.dtos.UsuarioResponseDto;
 import com.queroler.CadastroDeUsuario.dtos.administrador.AdministradorRequestDTO;
 import com.queroler.CadastroDeUsuario.enuns.UsuarioRole;
-import com.queroler.CadastroDeUsuario.exceptions.SenhaInvalidaException;
-import com.queroler.CadastroDeUsuario.exceptions.UsuarioNaoEncontradoException;
+import com.queroler.CadastroDeUsuario.exceptions.especies.SenhaInvalidaException;
+import com.queroler.CadastroDeUsuario.exceptions.especies.UsuarioNaoEncontradoException;
 import com.queroler.CadastroDeUsuario.mappers.implementacoes.UsuarioMapperImpl;
 import com.queroler.CadastroDeUsuario.model.Usuario;
 import com.queroler.CadastroDeUsuario.repository.UsuarioRepository;
@@ -23,7 +23,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.*;
