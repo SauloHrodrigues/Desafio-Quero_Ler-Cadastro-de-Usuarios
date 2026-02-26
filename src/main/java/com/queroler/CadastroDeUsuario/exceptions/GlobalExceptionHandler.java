@@ -15,27 +15,32 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(EmailNaoCadastradoException.class)
-    public ResponseEntity<Object> handlerEmailNaoCadastradoException(EmailNaoCadastradoException ex){
+    public ResponseEntity<Object> handlerEmailNaoCadastradoException(EmailNaoCadastradoException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
     @ExceptionHandler(UsuarioNaoEncontradoException.class)
-    public ResponseEntity<Object> handlerUsuarioNaoEncontradoException(UsuarioNaoEncontradoException ex){
+    public ResponseEntity<Object> handlerUsuarioNaoEncontradoException(UsuarioNaoEncontradoException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(NotificacaoNaoEncontradaException.class)
+    public ResponseEntity<Object> handlerNotificacaoNaoEncontradaException(NotificacaoNaoEncontradaException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
     @ExceptionHandler(DocumentoNaoEncontradoException.class)
-    public ResponseEntity<Object> handlerDocumentoNaoEncontradoException(DocumentoNaoEncontradoException ex){
+    public ResponseEntity<Object> handlerDocumentoNaoEncontradoException(DocumentoNaoEncontradoException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
     @ExceptionHandler(SenhaInvalidaException.class)
-    public ResponseEntity<Object> handlerSenhaInvalidaException(SenhaInvalidaException ex){
+    public ResponseEntity<Object> handlerSenhaInvalidaException(SenhaInvalidaException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
     @ExceptionHandler(EmailInvalidoException.class)
-    public ResponseEntity<Object> handlerEmailInvalidoException(EmailInvalidoException ex){
+    public ResponseEntity<Object> handlerEmailInvalidoException(EmailInvalidoException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 

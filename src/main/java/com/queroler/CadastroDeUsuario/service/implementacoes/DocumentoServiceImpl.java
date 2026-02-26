@@ -7,22 +7,31 @@ import com.queroler.CadastroDeUsuario.exceptions.especies.DocumentoNaoEncontrado
 import com.queroler.CadastroDeUsuario.mappers.DocumentoMapper;
 import com.queroler.CadastroDeUsuario.model.Documento;
 import com.queroler.CadastroDeUsuario.repository.DocumentoRepository;
+import com.queroler.CadastroDeUsuario.repository.NotificacaoRepository;
 import com.queroler.CadastroDeUsuario.service.DocumentoService;
+import com.queroler.CadastroDeUsuario.service.NotificacaoService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
 public class DocumentoServiceImpl implements DocumentoService {
     private final DocumentoRepository repository;
     private final DocumentoMapper mapper;
+    private final NotificacaoService notificacaoService;
 
+    @Transactional
     @Override
     public DocumentoResponseDto criar(DocumentoRequestDto dto) {
         Documento documento = mapper.toEntity(dto);
         documento = repository.save(documento);
+        notificacaoService.gerar(documento);
         return mapper.toResponse(documento);
     }
 

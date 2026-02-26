@@ -1,0 +1,2 @@
+ALTER TABLE tb_documentos
+    ADD COLUMN ultima_alteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP;

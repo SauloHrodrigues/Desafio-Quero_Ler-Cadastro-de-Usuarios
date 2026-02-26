@@ -29,6 +29,8 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST,"/login").permitAll()
                         .requestMatchers(HttpMethod.POST,"/usuarios").permitAll()
                         .requestMatchers(HttpMethod.GET,"/usuarios").hasRole("LEITOR")
+                        .requestMatchers(HttpMethod.GET,"/notificacoes").hasRole("LEITOR")
+                        .requestMatchers(HttpMethod.PATCH,"/notificacoes").hasRole("LEITOR")
                         .requestMatchers(HttpMethod.PATCH,"/usuarios").hasRole("LEITOR")
                         .requestMatchers(HttpMethod.DELETE,"/usuarios").hasRole("LEITOR")
                         .requestMatchers(HttpMethod.POST, "/administradores").hasRole("ADMINISTRADOR")

@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS tb_usuario_documento CASCADE;

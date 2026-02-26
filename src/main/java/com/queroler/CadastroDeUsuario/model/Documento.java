@@ -3,6 +3,11 @@ package com.queroler.CadastroDeUsuario.model;
 import com.queroler.CadastroDeUsuario.enuns.DocumentoTipo;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,4 +25,10 @@ public class Documento {
     @Column(name = "tipo", nullable = false)
     private DocumentoTipo tipo;
     private String conteudo;
+    @UpdateTimestamp
+    @Column(name = "ultima_alteracao")
+    private LocalDateTime ultimaAlteracao;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 }

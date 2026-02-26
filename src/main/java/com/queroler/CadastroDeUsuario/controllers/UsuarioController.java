@@ -34,7 +34,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deletar(){
+    public ResponseEntity<Void> deletar() {
         service.deletar();
         return ResponseEntity.noContent().build();
     }

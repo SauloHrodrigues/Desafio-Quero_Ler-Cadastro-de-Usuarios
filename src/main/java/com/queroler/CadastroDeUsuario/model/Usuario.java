@@ -79,6 +79,9 @@ public class Usuario implements UserDetails {
     @Column(name = "senha", nullable = false)
     private String senha;
 
+    @OneToMany(mappedBy = "usuario")
+    private List<Documento> documentos;
+
     public Usuario(String login, String password, UsuarioRole role) {
         this.login = login;
         this.role = role;
