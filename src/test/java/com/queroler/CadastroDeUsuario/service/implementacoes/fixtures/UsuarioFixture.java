@@ -5,6 +5,7 @@ import com.queroler.CadastroDeUsuario.dtos.UsuarioResponseDto;
 import com.queroler.CadastroDeUsuario.dtos.administrador.AdministradorRequestDTO;
 import com.queroler.CadastroDeUsuario.enuns.UsuarioRole;
 import com.queroler.CadastroDeUsuario.model.Usuario;
+import jakarta.persistence.Id;
 
 import java.time.LocalDate;
 
@@ -35,10 +36,19 @@ public class UsuarioFixture {
         return entity(UsuarioRole.LEITOR);
     }
     public static Usuario entity(UsuarioRole role){
-        return new Usuario(
-                ID,NOME,EMAIL,CPF,DATA_NASCIMENTO,
-                ACEITE_TERMOS,CIDADE,ESTADO,PAIS,role,LOGIN,SENHA
-        );
+        Usuario usuario= new Usuario();
+        usuario.setId(ID);
+        usuario.setNome(NOME);
+        usuario.setEmail(EMAIL);
+        usuario.setCpf(CPF);
+        usuario.setDataDeNascimento(DATA_NASCIMENTO);
+        usuario.setAceitarTermos(ACEITE_TERMOS);
+        usuario.setCidade(CIDADE);
+        usuario.setEstado(ESTADO);
+        usuario.setPais(PAIS);
+        usuario.setRole(role);
+        usuario.setSenha(SENHA);
+        return usuario;
     }
 
     public static UsuarioResponseDto response(Usuario usuario){

@@ -18,7 +18,12 @@ public class DocumentoFixture {
     }
 
     public static Documento entity(){
-        return new Documento(ID,TITULO,TIPO,CONTEUDO);
+        Documento documento= new Documento();
+        documento.setId(ID);
+        documento.setTitulo(TITULO);
+        documento.setTipo(TIPO);
+        documento.setConteudo(CONTEUDO);
+        return documento;
     }
 
     public static DocumentoResponseDto response(){

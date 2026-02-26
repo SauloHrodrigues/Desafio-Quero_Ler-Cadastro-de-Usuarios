@@ -6,6 +6,7 @@ import com.queroler.CadastroDeUsuario.dtos.documento.DocumentoUpdateDto;
 import com.queroler.CadastroDeUsuario.exceptions.especies.DocumentoNaoEncontradoException;
 import com.queroler.CadastroDeUsuario.mappers.implementacoes.DocumentoMapperImpl;
 import com.queroler.CadastroDeUsuario.model.Documento;
+import com.queroler.CadastroDeUsuario.repository.DocumentoRepository;
 import com.queroler.CadastroDeUsuario.service.implementacoes.fixtures.DocumentoFixture;
 import org.junit.jupiter.api.Test;
 
@@ -29,6 +30,9 @@ class DocumentoServiceImplTest {
 
     @Mock
     private DocumentoMapperImpl mapper;
+
+    @Mock
+    private NotificacaoServiceImpl notificacaoService;
 
     @InjectMocks
     private DocumentoServiceImpl service;
@@ -54,6 +58,7 @@ class DocumentoServiceImplTest {
 
         verify(mapper).toEntity(request);
         verify(repository).save(documento);
+        verify(notificacaoService).gerar(documentoSalvo);
         verify(mapper).toResponse(documentoSalvo);
     }
 
